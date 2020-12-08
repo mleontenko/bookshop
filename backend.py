@@ -15,7 +15,7 @@ def insert(title, author, year, isbn):
     conn.close()
 
 def view():
-    conn.sqlite.connect("books.db")
+    conn=sqlite3.connect("books.db")
     cur=conn.cursor()
     cur.execute("SELECT * FROM book")
     rows=cur.fetchall()
@@ -26,14 +26,14 @@ def search(title="", author="", year="", isbn=""):
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
     cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=?", (title,author,year,isbn))
-    conn.commit()
+    rows=cur.fetchall()
     conn.close()
     return rows
 
 def delete(id):
-    conn.sqlite.connect("books.db")
+    conn.sqlite3.connect("books.db")
     cur=conn.cursor()
-    cur.execute("DELETE FROM book WHERE id=?" (id,))
+    cur.execute("DELETE FROM book WHERE id=?", (id,))
     conn.commit()
     conn.close()
 
